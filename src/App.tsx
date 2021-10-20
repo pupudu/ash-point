@@ -1,6 +1,7 @@
-import { useEffect, FC, lazy, Suspense, CSSProperties } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Container from "@mui/material/Container";
+import { useEffect, FC, lazy, Suspense, CSSProperties } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 /**
  * These are the slides
@@ -9,21 +10,7 @@ import Container from "@mui/material/Container";
  *   2. Explicitly importing the files increases code duplication and complexity
  * This however comes with the cost of needing suspense.
  */
-const screens = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "11",
-  "12",
-  "13"
-];
+const screens = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
 const ScreensCache: FC<{ count: number; style: CSSProperties }>[] = [];
 
 /**
@@ -41,14 +28,13 @@ async function preloadSlide(count: number) {
 }
 
 export default function App() {
-  const params = useParams();
+  const params = useParams<any>();
+  console.log(params);
   const count = Number(params.id) || 1;
-  const navigate = useNavigate();
+  const navigate = useHistory().push;
 
   // Get the next slide
-  const Comp =
-    ScreensCache[count - 1] ||
-    lazy(() => import(`./Screens/${screens[count - 1]}.tsx`));
+  const Comp = ScreensCache[count - 1] || lazy(() => import(`./Screens/${screens[count - 1]}.tsx`));
 
   /**
    * Handle keyboard events
@@ -56,9 +42,9 @@ export default function App() {
   useEffect(() => {
     function listener(event: KeyboardEvent) {
       let newId = count;
-      if (event.key === "ArrowLeft") {
+      if (event.key === 'ArrowLeft') {
         newId = Math.max(count - 1, 1);
-      } else if (event.key === "ArrowRight") {
+      } else if (event.key === 'ArrowRight') {
         newId = Math.min(count + 1, screens.length);
       }
       if (count !== newId) {
@@ -66,9 +52,9 @@ export default function App() {
       }
       console.clear();
     }
-    document.addEventListener("keydown", listener);
+    document.addEventListener('keydown', listener);
 
-    return () => document.removeEventListener("keydown", listener);
+    return () => document.removeEventListener('keydown', listener);
   }, [count, navigate]);
 
   useEffect(() => {
@@ -84,12 +70,12 @@ export default function App() {
   }, [count]);
 
   return (
-    <div className="App">
-      <Suspense fallback="LOADING...">
+    <Box width="100%">
+      <Suspense fallback={null}>
         <Container maxWidth="lg">
-          <Comp count={count} style={{ display: "inline" }} />
+          <Comp count={count} style={{ display: 'inline' }} />
         </Container>
       </Suspense>
-    </div>
+    </Box>
   );
 }

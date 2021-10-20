@@ -1,5 +1,6 @@
-import { CodeBlock } from "../CodeBlock";
-import Text from "@mui/material/Typography";
+import { CodeBlock } from '../CodeBlock';
+import Text from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 const text = `
 console.log('This is: log');
@@ -12,7 +13,7 @@ console.error('This is: error');
 export default (p: any) => {
   return (
     <div>
-      <Text variant="h1">{p.count}. Log levels</Text>
+      <Text variant="h2">{p.count}. Log levels</Text>
       <CodeBlock code={text} />
     </div>
   );

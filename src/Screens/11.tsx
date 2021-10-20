@@ -1,4 +1,4 @@
-import { CodeBlock } from "../CodeBlock";
+import { CodeBlock } from '../CodeBlock';
 
 const text = `
 console.log('%c Hasta La Vista!', 'color: red; font-size: 30px;');

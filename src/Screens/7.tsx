@@ -1,4 +1,4 @@
-import { CodeBlock } from "../CodeBlock";
+import { CodeBlock } from '../CodeBlock';
 
 const text = `
 const limit = Math.ceil(Math.random() * 5);

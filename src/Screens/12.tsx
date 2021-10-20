@@ -1,5 +1,5 @@
-import Text from "@mui/material/Typography";
-import { MD } from "../MD";
+import Text from '@mui/material/Typography';
+import { MD } from '../MD';
 
 const md = `
 

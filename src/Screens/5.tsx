@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { CodeBlock } from "../CodeBlock";
-import Button from "@mui/material/Button";
+import { useState } from 'react';
+import { CodeBlock } from '../CodeBlock';
+import Button from '@mui/material/Button';
 
 const text1 = `
 const Herry = 63;

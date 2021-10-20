@@ -1,4 +1,4 @@
-import Text from "@mui/material/Typography";
+import Text from '@mui/material/Typography';
 
 export default (p: any) => {
   return (

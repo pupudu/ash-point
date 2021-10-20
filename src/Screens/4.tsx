@@ -1,4 +1,4 @@
-import { CodeBlock } from "../CodeBlock";
+import { CodeBlock } from '../CodeBlock';
 
 const text = `
 console.log(1, 2, 3);

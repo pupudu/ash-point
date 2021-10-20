@@ -1,35 +1,58 @@
-import { render } from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import App from "./App";
+import { render } from 'react-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import App from './App';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import A1 from './Screens/1';
+import A2 from './Screens/2';
+import './styles.css';
 
 const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
   components: {
     MuiButton: {
+      defaultProps: {
+        variant: 'contained',
+      },
       styleOverrides: {
         contained: {
-          marginRight: '2px'
-        }
+          marginRight: '2px',
+        },
       },
-    }
-  }
+    },
+  },
 });
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 
-(async function run() {
-  console.log('dodan');
-  render(
+function Main({ ...rest }) {
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/:id" element={<App />} />
-          <Route path="/" element={<App />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>,
+      <Route
+        render={({ location }) => (
+          <TransitionGroup {...rest}>
+            <CSSTransition key={location.pathname} classNames="fade" timeout={600}>
+              <Switch location={location}>
+                <Route path="/:id" render={() => <App />} />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        )}
+      />
+    </ThemeProvider>
+  );
+}
+
+(() => {
+  console.log('dodan');
+  render(
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>,
     rootElement
   );
 })();
