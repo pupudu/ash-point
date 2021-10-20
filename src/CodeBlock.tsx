@@ -1,6 +1,7 @@
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Highlight from "react-highlight.js";
-import { Button, Box } from "@chakra-ui/react";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 export function CodeBlock(props: any) {
   const text = props.code.trim();

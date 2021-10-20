@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import Text from "@mui/material/Typography";
 import { MD } from "../MD";
 
 const md = `
@@ -22,7 +22,7 @@ const md = `
 export default (p: any) => {
   return (
     <div>
-      <Heading>{p.count}. Markdown</Heading>
+      <Text variant="h1">{p.count}. Markdown</Text>
       <MD children={md} />
     </div>
   );

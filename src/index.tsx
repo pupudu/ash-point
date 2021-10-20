@@ -1,36 +1,17 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import App from "./App";
-import { extendTheme } from "@chakra-ui/react";
 
-const config = {
-  initialColorMode: "dark",
-  useSystemColorMode: false
-};
-
-const theme = extendTheme({
-  config,
-  styles: {
-    global: {
-      body: {
-        bg: "#333",
-        color: "#eee"
-      },
-      h1: {
-        fontSize: "2em",
-        fontWeight: "bold"
-      },
-      blockquote: {
-        margin: 0
-      }
-    }
-  },
+const theme = createTheme({
   components: {
-    Button: {
-      baseStyle: {
-        marginRight: "2px"
-      }
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          marginRight: '2px'
+        }
+      },
     }
   }
 });
@@ -38,16 +19,17 @@ const theme = extendTheme({
 const rootElement = document.getElementById("root");
 
 (async function run() {
+  console.log('dodan');
   render(
-    <ChakraProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
-        {/* <App Screens={Screens} /> */}
         <Routes>
           <Route path="/:id" element={<App />} />
           <Route path="/" element={<App />} />
         </Routes>
       </BrowserRouter>
-    </ChakraProvider>,
+    </ThemeProvider>,
     rootElement
   );
 })();

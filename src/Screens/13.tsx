@@ -1,9 +1,9 @@
-import { Heading } from "@chakra-ui/react";
+import Text from "@mui/material/Typography";
 
 export default (p: any) => {
   return (
     <div>
-      <Heading>{p.count}. Embedded Snippets</Heading>
+      <Text variant="h1">{p.count}. Embedded Snippets</Text>
       <iframe
         width="560"
         height="315"

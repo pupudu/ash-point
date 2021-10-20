@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CodeBlock } from "../CodeBlock";
-import { Button } from "@chakra-ui/react";
+import Button from "@mui/material/Button";
 
 const text1 = `
 console.log(

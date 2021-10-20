@@ -1,5 +1,5 @@
 import { CodeBlock } from "../CodeBlock";
-import { Heading } from "@chakra-ui/react";
+import Text from "@mui/material/Typography";
 
 const text = `
 console.log('This is: log');
@@ -12,7 +12,7 @@ console.error('This is: error');
 export default (p: any) => {
   return (
     <div>
-      <Heading>{p.count}. Log levels</Heading>
+      <Text variant="h1">{p.count}. Log levels</Text>
       <CodeBlock code={text} />
     </div>
   );

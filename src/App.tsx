@@ -1,7 +1,6 @@
 import { useEffect, FC, lazy, Suspense, CSSProperties } from "react";
-import "./styles.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container } from "@chakra-ui/react";
+import Container from "@mui/material/Container";
 
 /**
  * These are the slides
@@ -35,7 +34,7 @@ async function preloadSlide(count: number) {
     return;
   }
   try {
-    const promise = import(`./Screens/${screens[count]}`);
+    const promise = import(`./Screens/${screens[count]}.tsx`);
     await new Promise((r) => setTimeout(r, 500));
     ScreensCache[count] = (await promise).default;
   } catch (e) {}
@@ -49,7 +48,7 @@ export default function App() {
   // Get the next slide
   const Comp =
     ScreensCache[count - 1] ||
-    lazy(() => import(`./Screens/${screens[count - 1]}`));
+    lazy(() => import(`./Screens/${screens[count - 1]}.tsx`));
 
   /**
    * Handle keyboard events
@@ -87,7 +86,7 @@ export default function App() {
   return (
     <div className="App">
       <Suspense fallback="LOADING...">
-        <Container maxWidth="800px">
+        <Container maxWidth="lg">
           <Comp count={count} style={{ display: "inline" }} />
         </Container>
       </Suspense>
