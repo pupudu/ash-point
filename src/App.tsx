@@ -1,5 +1,5 @@
 import { useEffect, FC, lazy, Suspense, CSSProperties } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
  *   2. Explicitly importing the files increases code duplication and complexity
  * This however comes with the cost of needing suspense.
  */
-const screens = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
+const screens = ['1', '2'];
 const ScreensCache: FC<{ count: number; style: CSSProperties }>[] = [];
 
 /**
@@ -31,7 +31,7 @@ export default function App() {
   const params = useParams<any>();
   console.log(params);
   const count = Number(params.id) || 1;
-  const navigate = useHistory().push;
+  const navigate = useNavigate();
 
   // Get the next slide
   const Comp = ScreensCache[count - 1] || lazy(() => import(`./Screens/${screens[count - 1]}.tsx`));
@@ -70,7 +70,7 @@ export default function App() {
   }, [count]);
 
   return (
-    <Box width="100%">
+    <Box width="100%" minHeight="100vh">
       <Suspense fallback={null}>
         <Container maxWidth="lg">
           <Comp count={count} style={{ display: 'inline' }} />

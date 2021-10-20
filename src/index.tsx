@@ -1,5 +1,5 @@
 import { render } from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
@@ -27,26 +27,22 @@ const theme = createTheme({
 const rootElement = document.getElementById('root');
 
 function Main({ ...rest }) {
+  const location = useLocation();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Route
-        render={({ location }) => (
-          <TransitionGroup {...rest}>
-            <CSSTransition key={location.pathname} classNames="fade" timeout={600}>
-              <Switch location={location}>
-                <Route path="/:id" render={() => <App />} />
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        )}
-      />
+      <TransitionGroup {...rest}>
+        <CSSTransition key={location.pathname} classNames="fade" timeout={600}>
+          <Routes location={location}>
+            <Route path="/:id" element={<App />} />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
     </ThemeProvider>
   );
 }
 
 (() => {
-  console.log('dodan');
   render(
     <BrowserRouter>
       <Main />
