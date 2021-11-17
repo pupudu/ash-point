@@ -10,7 +10,17 @@ import Box from '@mui/material/Box';
  *   2. Explicitly importing the files increases code duplication and complexity
  * This however comes with the cost of needing suspense.
  */
-const screens = ['1', '2'];
+const screens = [
+  'Intro',
+  'ToC',
+  'WhyTestCafe',
+  'WhyCypress',
+  'WhatIsPulse',
+  'MigrationTheGood',
+  'MigrationTheBad',
+  'MigrationTheUgly',
+  'CypressDashboard',
+];
 const ScreensCache: FC<{ count: number; style: CSSProperties }>[] = [];
 
 /**
@@ -21,7 +31,8 @@ async function preloadSlide(count: number) {
     return;
   }
   try {
-    const promise = import(`./Screens/${screens[count]}.tsx`);
+    /* @vite-ignore */
+    const promise = import(/* @vite-ignore */ `./Screens/${screens[count]}`);
     await new Promise((r) => setTimeout(r, 500));
     ScreensCache[count] = (await promise).default;
   } catch (e) {}
@@ -34,7 +45,10 @@ export default function App() {
   const navigate = useNavigate();
 
   // Get the next slide
-  const Comp = ScreensCache[count - 1] || lazy(() => import(`./Screens/${screens[count - 1]}.tsx`));
+  /* @vite-ignore */
+  const Comp =
+    ScreensCache[count - 1] ||
+    lazy(() => import(/* @vite-ignore */ `./Screens/${screens[count - 1]}`));
 
   /**
    * Handle keyboard events
@@ -57,10 +71,6 @@ export default function App() {
     return () => document.removeEventListener('keydown', listener);
   }, [count, navigate]);
 
-  useEffect(() => {
-    console.clear();
-  }, []);
-
   /**
    * Here we preload the next and previous slides for better UX
    */
@@ -70,7 +80,7 @@ export default function App() {
   }, [count]);
 
   return (
-    <Box width="100%" minHeight="100vh">
+    <Box width="100%" minHeight="100vh" p="2rem" textAlign="center">
       <Suspense fallback={null}>
         <Container maxWidth="lg">
           <Comp count={count} style={{ display: 'inline' }} />
